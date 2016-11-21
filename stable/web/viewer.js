@@ -5669,8 +5669,9 @@ var PDFViewerApplication = {
   get supportsPrinting() {
     var canvas = document.createElement('canvas');
     var value = 'mozPrintCallback' in canvas;
+    var canPrint =  parent.document.getElementById('pdfjsviewer').getAttribute("can_print");
 
-    return PDFJS.shadow(this, 'supportsPrinting', value);
+    return canPrint !== "false" ? PDFJS.shadow(this, 'supportsPrinting', value): false;
   },
 
   get supportsFullscreen() {
@@ -7392,5 +7393,3 @@ window.addEventListener('afterprint', function afterPrint(evt) {
     window.requestAnimationFrame(resolve);
   });
 })();
-
-

@@ -362,16 +362,22 @@ class PDFviewer
 						'width' => $this->options['tx_width'],
 						'height' => $this->options['tx_height'],
 						'beta' => empty($this->options['beta']) ? 0 : "true",
-					), 
+            					'can_print' => true,
+					),
 					$atts,
-					'pdfviewer' 
+					'pdfviewer'
 				);
-				
+
 				$pdfjs_mode = ( $atts['beta'] === "true" ) ? 'beta' : 'stable';
 				$pdfjs_url = plugin_dir_url( __FILE__ ).$pdfjs_mode.'/web/viewer.html?file='.$content;
-				
-				$pdfjs_iframe = '<iframe class="pdfjs-viewer" width="'.$atts['width'].'" height="'.$atts['height'].'" src="'.$pdfjs_url.'"></iframe> ';
-				
+
+	  			$pdfjs_iframe = '<iframe class="pdfjs-viewer"
+								id="pdfjsviewer"
+								width="'.$atts['width'].'"
+								height="'.$atts['height'].'"
+								can_print="'.$atts['can_print'].'"
+								src="'.$pdfjs_url.'"></iframe> ';
+
 				return $pdfjs_iframe;
 			}
 		} else {
